@@ -2,20 +2,10 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import SeasonDisplay from './SeasonDisplay';
 import Spinner from './Spinner';
+import useLocation from './useLocation';
 
 const App = () => {
-	const [ lat, setLat ] = useState(null);
-	const [ errorMessage, setErrorMessage ] = useState('');
-
-	useEffect(() => {
-		//Find users physical location with geolocation api in all browsers
-		window.navigator.geolocation.getCurrentPosition(
-			//success call back-found location
-			(position) => setLat(position.coords.latitude),
-			//Failure call back
-			(err) => setErrorMessage(err.message)
-		);
-	}, []);
+	const [ lat, errorMessage ] = useLocation();
 
 	let content;
 	if (errorMessage) {
